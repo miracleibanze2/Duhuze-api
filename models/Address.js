@@ -29,4 +29,5 @@ const ProvinceSchema = new mongoose.Schema({
   districts: [DistrictSchema],
 });
 
-module.exports = mongoose.model("Address", ProvinceSchema);
+const Address = mongoose.model("Address", ProvinceSchema);
+module.exports = Address;

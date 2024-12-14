@@ -10,4 +10,6 @@ const UpdatesRequestSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("UpdateRequest", UpdatesRequestSchema);
+const UpdateRequest = mongoose.model("UpdateRequest", UpdatesRequestSchema);
+
+module.exports = UpdateRequest;
