@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const asyncHandler = require("express-async-handler");
-const Address = require("../models/address");
+const Address = require("../models/address.js");
 
 const routes = Router();
 
