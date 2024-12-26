@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const deviceSchema = new mongoose.Schema(
+const electronicSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -22,7 +22,7 @@ const deviceSchema = new mongoose.Schema(
     category: {
       type: String,
       required: true,
-      enum: ["Mobile", "Laptop", "Tablet", "Accessories", "Others"], // Define device categories
+      enum: ["Mobile", "Laptop", "Tablet", "Accessories", "Others"], // Define electronic categories
     },
     specifications: {
       type: Map,
@@ -64,6 +64,7 @@ const deviceSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    likes: Number,
     address: {
       province: { type: String, required: true },
       district: { type: String, required: true },
@@ -75,6 +76,6 @@ const deviceSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Device = mongoose.model("Device", deviceSchema);
+const Electronic = mongoose.model("Electronic", electronicSchema);
 
-module.exports = Device;
+module.exports = Electronic;

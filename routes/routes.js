@@ -5,12 +5,16 @@ const Address = require("../models/address.js");
 const routes = Router();
 
 routes.use("/updates-request", require("./updates"));
-routes.use("/houses", require("./houses"));
+routes.use("/houses", require("./houses.js"));
+routes.use("/land", require("./lands.js"));
+routes.use("/electronics", require("./electronics.js"));
+routes.use("/messages", require("./messages.js"));
+routes.use("/property-like", require("./like.js"));
+routes.use("/list-request", require("./listRequest.js"));
 
 routes.get(
   "/address",
   asyncHandler(async (req, res) => {
-    console.log("this is address");
     try {
       const data = await Address.find().lean().exec();
       res.status(200).json(data);

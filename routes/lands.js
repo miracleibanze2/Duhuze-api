@@ -1,10 +1,10 @@
 const { Router } = require("express");
 const asyncHandler = require("express-async-handler");
-const House = require("../models/house");
+const Land = require("../models/land");
 
-const houses = Router();
+const land = Router();
 
-houses.get(
+land.get(
   "/",
   asyncHandler(async (req, res) => {
     const page = parseInt(req.query.page) || 1;
@@ -61,19 +61,19 @@ houses.get(
     console.log("for page", page);
 
     try {
-      // Fetch the filtered houses with pagination
-      const housesList = await House.find(query)
+      // Fetch the filtered land with pagination
+      const landList = await Land.find(query)
         .skip((page - 1) * pageSize)
         .limit(pageSize);
-      console.log(housesList);
-      res.status(200).send(housesList);
+      console.log(landList);
+      res.status(200).send(landList);
     } catch (err) {
-      console.error("Error fetching houses:", err);
+      console.error("Error fetching land:", err);
       res
         .status(500)
-        .send({ message: "Error fetching houses", error: err.message });
+        .send({ message: "Error fetching land", error: err.message });
     }
   })
 );
 
-module.exports = houses;
+module.exports = land;

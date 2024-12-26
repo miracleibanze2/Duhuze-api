@@ -53,6 +53,7 @@ const houseSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    likes: Number,
     address: {
       province: { type: String, required: true },
       district: { type: String, required: true },

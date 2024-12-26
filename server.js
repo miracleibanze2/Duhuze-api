@@ -15,7 +15,7 @@ mongoose
     console.log("connected to mongodb");
   })
   .catch((err) => {
-    console.err("There was error connecting to database", err);
+    console.error("There was error connecting to database", err);
   });
 
 app.use(express.json());
