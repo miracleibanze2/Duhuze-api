@@ -17,47 +17,41 @@ houses.get(
       sector,
       cell,
       village,
-      priceMin,
-      priceMax,
+      maximumPrice,
+      minimumPrice,
+      paymentType,
       bedrooms,
       isAvailable,
     } = req.query;
 
     // Dynamically build the query object
     const query = {};
-    // Address filtering
-    if (province) {
-      query["address.province"] = { $regex: province, $options: "i" };
-      console.log("using province", province);
-    } else {
-      console.log("No province query");
-    }
-    if (district) {
-      query["address.district"] = { $regex: district, $options: "i" };
-      console.log("using district", district);
-    } else {
-      console.log("No district query");
-    }
-    if (sector) {
-      query["address.sector"] = { $regex: sector, $options: "i" };
-      console.log("using sector", sector);
-    } else {
-      console.log("No sector query");
-    }
-    if (cell) {
-      query["address.cell"] = { $regex: cell, $options: "i" };
-      console.log("using cell", cell);
-    } else {
-      console.log("No cell query");
-    }
-    if (village) {
-      query["address.village"] = { $regex: village, $options: "i" };
-      console.log("using village", village);
-    } else {
-      console.log("No village query");
-    }
 
-    console.log("query to mongodb", query);
+    // Address filtering
+    if (province)
+      query["address.province"] = { $regex: province, $options: "i" };
+    if (district)
+      query["address.district"] = { $regex: district, $options: "i" };
+    if (sector) query["address.sector"] = { $regex: sector, $options: "i" };
+    if (cell) query["address.cell"] = { $regex: cell, $options: "i" };
+    if (village) query["address.village"] = { $regex: village, $options: "i" };
+
+    // Payment type filtering
+    if (paymentType) query.paymentType = { $regex: paymentType, $options: "i" };
+
+    // Price range filtering
+    if (maximumPrice)
+      query.price = { ...query.price, $lte: parseInt(maximumPrice) };
+    if (minimumPrice)
+      query.price = { ...query.price, $gte: parseInt(minimumPrice) };
+
+    // Bedrooms filtering
+    if (bedrooms) query.bedrooms = parseInt(bedrooms);
+
+    // Availability filtering
+    if (isAvailable !== undefined) query.isAvailable = isAvailable === "true";
+
+    console.log("query to MongoDB", query);
     console.log("for page", page);
 
     try {
@@ -65,7 +59,7 @@ houses.get(
       const housesList = await House.find(query)
         .skip((page - 1) * pageSize)
         .limit(pageSize);
-      console.log(housesList);
+
       res.status(200).send(housesList);
     } catch (err) {
       console.error("Error fetching houses:", err);
