@@ -23,7 +23,7 @@ app.use(cors(corsOptions));
 app.get("/", (req, res) => {
   return res.status(200).send({
     message:
-      "this is Hamwe API to provide data to Hamwe project which is based on providing location information on houses, land and electronics.",
+      "this is Duhuze API to provide data to Duhuze project which is based on providing location information on houses, land and electronics.",
   });
 });
 
